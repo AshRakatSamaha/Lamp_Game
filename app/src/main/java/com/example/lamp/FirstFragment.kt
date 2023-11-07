@@ -24,11 +24,11 @@ class FirstFragment : Fragment() {
     private fun turnOnFirstLamp() {
         binding.btnClick.setOnClickListener {
             if (isClickBtn) {
-                binding.imageSmall1.setImageResource(R.drawable.lamp_on)
+                binding.imageSmall1.setImageResource(R.drawable.small_lamp_turn_on)
                 changeFirstLampToSecondLamp()
                 turnOnLargeLamp()
             } else {
-                binding.imageSmall1.setImageResource(R.drawable.lamp_off)
+                binding.imageSmall1.setImageResource(R.drawable.small_lamp_turn_off)
                 turnOffLargeLamp()
             }
             isClickBtn = !isClickBtn
@@ -38,11 +38,11 @@ class FirstFragment : Fragment() {
     private fun turnOnSecondLamp() {
         binding.btnClick.setOnClickListener {
             if (isClickBtn) {
-                binding.imageSmall2.setImageResource(R.drawable.lamp_on)
+                binding.imageSmall2.setImageResource(R.drawable.small_lamp_turn_on)
                 changeSecondLampToThirdLamp()
                 turnOnLargeLamp()
             } else {
-                binding.imageSmall2.setImageResource(R.drawable.lamp_off)
+                binding.imageSmall2.setImageResource(R.drawable.small_lamp_turn_off)
                 turnOffLargeLamp()
             }
             isClickBtn = !isClickBtn
@@ -52,11 +52,11 @@ class FirstFragment : Fragment() {
     private fun turnOnThirdLamp() {
         binding.btnClick.setOnClickListener {
             if (isClickBtn) {
-                binding.imageSmall3.setImageResource(R.drawable.lamp_on)
+                binding.imageSmall3.setImageResource(R.drawable.small_lamp_turn_on)
                 turnOnLargeLamp()
                 turnOffLamps()
             } else {
-                binding.imageSmall3.setImageResource(R.drawable.lamp_off)
+                binding.imageSmall3.setImageResource(R.drawable.small_lamp_turn_off)
                 turnOffLargeLamp()
             }
             isClickBtn = !isClickBtn
@@ -65,8 +65,7 @@ class FirstFragment : Fragment() {
 
     private fun changeFirstLampToSecondLamp() {
         binding.imageLargeOff.setOnLongClickListener {
-            binding.image1.visibility = View.VISIBLE
-            binding.imageSmall1.setImageResource(R.drawable.lamp_off)
+            binding.imageSmall1.setImageResource(R.drawable.broken_small_lamp)
             brokenLamp()
             callButtonRetryForSecondLamp()
             true
@@ -75,8 +74,7 @@ class FirstFragment : Fragment() {
 
     private fun changeSecondLampToThirdLamp() {
         binding.imageLargeOff.setOnLongClickListener {
-            binding.image2.visibility = View.VISIBLE
-            binding.imageSmall2.setImageResource(R.drawable.lamp_off)
+            binding.imageSmall2.setImageResource(R.drawable.broken_small_lamp)
             brokenLamp()
             callButtonRetryForThirdLamp()
             true
@@ -85,9 +83,8 @@ class FirstFragment : Fragment() {
 
     private fun turnOffLamps() {
         binding.imageLargeOff.setOnLongClickListener {
-            binding.image3.visibility = View.VISIBLE
             binding.btnClick.visibility = View.GONE
-            binding.imageSmall3.setImageResource(R.drawable.lamp_off)
+            binding.imageSmall3.setImageResource(R.drawable.broken_small_lamp)
             findNavController().navigate(R.id.action_firstFragment_to_scandFragment)
             brokenLamp()
             true
@@ -113,20 +110,20 @@ class FirstFragment : Fragment() {
     private fun visibleButtons() {
         binding.btnRetry.visibility = View.GONE
         binding.btnClick.visibility = View.VISIBLE
-        binding.imageLargeOff.setImageResource(R.drawable.large_lamp_off)
+        binding.imageLargeOff.setImageResource(R.drawable.large_lamp_turn_off)
     }
 
     private fun brokenLamp() {
-        binding.imageLargeOff.setImageResource(R.drawable.broken_lamp)
+        binding.imageLargeOff.setImageResource(R.drawable.broken_large_lamp)
     }
 
     private fun turnOnLargeLamp() {
-        binding.imageLargeOff.setImageResource(R.drawable.large_lamp_on)
+        binding.imageLargeOff.setImageResource(R.drawable.large_lamp_turn_on)
         isClickBtn = true
     }
 
     private fun turnOffLargeLamp() {
-        binding.imageLargeOff.setImageResource(R.drawable.large_lamp_off)
+        binding.imageLargeOff.setImageResource(R.drawable.large_lamp_turn_off)
         isClickBtn = false
     }
 }
