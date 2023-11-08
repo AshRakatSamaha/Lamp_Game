@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.lamp.databinding.FragmentFirstBinding
@@ -17,12 +18,12 @@ class FirstFragment : Fragment() {
     ): View? {
         binding = FragmentFirstBinding.inflate(layoutInflater)
         turnOnFirstLamp()
+        initBackSack()
         return binding.root
     }
 
-
     private fun turnOnFirstLamp() {
-        binding.btnClick.setOnClickListener {
+        binding.imageLargeOff.setOnClickListener {
             if (isClickBtn) {
                 binding.imageSmall1.setImageResource(R.drawable.small_lamp_turn_on)
                 changeFirstLampToSecondLamp()
@@ -36,7 +37,7 @@ class FirstFragment : Fragment() {
     }
 
     private fun turnOnSecondLamp() {
-        binding.btnClick.setOnClickListener {
+        binding.imageLargeOff.setOnClickListener {
             if (isClickBtn) {
                 binding.imageSmall2.setImageResource(R.drawable.small_lamp_turn_on)
                 changeSecondLampToThirdLamp()
@@ -50,7 +51,7 @@ class FirstFragment : Fragment() {
     }
 
     private fun turnOnThirdLamp() {
-        binding.btnClick.setOnClickListener {
+        binding.imageLargeOff.setOnClickListener {
             if (isClickBtn) {
                 binding.imageSmall3.setImageResource(R.drawable.small_lamp_turn_on)
                 turnOnLargeLamp()
@@ -83,7 +84,6 @@ class FirstFragment : Fragment() {
 
     private fun turnOffLamps() {
         binding.imageLargeOff.setOnLongClickListener {
-            binding.btnClick.visibility = View.GONE
             binding.imageSmall3.setImageResource(R.drawable.broken_small_lamp)
             findNavController().navigate(R.id.action_firstFragment_to_scandFragment)
             brokenLamp()
@@ -109,12 +109,14 @@ class FirstFragment : Fragment() {
 
     private fun visibleButtons() {
         binding.btnRetry.visibility = View.GONE
-        binding.btnClick.visibility = View.VISIBLE
+        binding.brokenLamp.visibility=View.GONE
+        binding.imageLargeOff.visibility=View.VISIBLE
         binding.imageLargeOff.setImageResource(R.drawable.large_lamp_turn_off)
     }
 
     private fun brokenLamp() {
-        binding.imageLargeOff.setImageResource(R.drawable.broken_large_lamp)
+        binding.brokenLamp.visibility=View.VISIBLE
+        binding.imageLargeOff.visibility=View.GONE
     }
 
     private fun turnOnLargeLamp() {
@@ -125,5 +127,16 @@ class FirstFragment : Fragment() {
     private fun turnOffLargeLamp() {
         binding.imageLargeOff.setImageResource(R.drawable.large_lamp_turn_off)
         isClickBtn = false
+    }
+    private fun initBackSack() {
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                requireActivity().finish()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            onBackPressedCallback
+        )
     }
 }
